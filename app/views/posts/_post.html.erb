@@ -1,0 +1,59 @@
+<%# tarjetas de comentarios %>
+<div class="tarjeta card col-lg-10 mb-2 border-warning" id="post_<%=post.id%>" >
+
+  <div class="card-header border-warning">
+    <%=post.title%>
+  </div>
+  <div class="card-body">
+    <blockquote class="blockquote mb-0">
+      <p><%=post.content%></p>
+      <footer class="blockquote-footer text-warning"> <cite title="Source Title"><%=post.created_at%></cite></footer>
+    </blockquote>
+
+   
+    <%= link_to "ver", post, :class=>"btn btn-dark btn-sm", remote: true%>
+
+   <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#modalEditPost_<%= post.id%>">Editar</button>
+
+    <%= link_to "Eliminar", post, method: :delete, :class=>"btn btn-danger btn-sm float-right tex-white", data:{ confirm: "Estas seguro?"}, remote: true%>
+  </div>
+
+</div>
+
+
+
+
+<%= form_with(model: post, remote: true) do |form| %>
+    <div class="modal fade" id="modalEditPost_<%= post.id%>" tabindex="-1" role="dialog"  aria-hidden="true">
+      <div class="modal-dialog role="document">
+        <div class="modal-content">
+         
+          <div class="modal-header bg-warning">
+            <h2 class="modal-title text-light">Editar post</h2>
+            <button type="button" class="close" data-dismiss="modal" arial-label="Close">
+              <span aria-hidden="true">&times;</span>
+            <button>
+          </div>
+
+          <div class="modal-body">
+                <div class="form-group">
+                  <%= form.label :title %>
+                  <%= form.text_field :title, :class => "form-control" %>
+                </div>
+                <div class="Form-group">
+                  <%= form.label :content %>
+                  <%= form.text_area :content,  :class => "form-control"%>
+                </div>
+          </div>
+
+          <div class="modal-footer">
+                <%= form.submit "Actualizar", :class => "btn btn-warning"%>
+          </div>
+       
+        </div>
+      </div>
+    </div>
+<% end %>
+
+
+
